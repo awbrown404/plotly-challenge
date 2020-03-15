@@ -10,11 +10,11 @@ function createPlots(id) {
 
         // filter samples by id 
         var samples = data.samples.filter(s => s.id.toString() === id)[0];
-        console.log(samples)
+        // console.log(samples)
 
         // top 10
         var sample_values = samples.sample_values.slice(0, 10);
-        console.log(sample_values)
+        // console.log(sample_values)
 
         // top 10 otu ids for the plot otu 
         var topTenOTU = samples.otu_ids.slice(0, 10).reverse();
@@ -60,6 +60,30 @@ function createPlots(id) {
         Plotly.newPlot("bar", data, layout);
 
         // Bubble Chart
+        var bubbleTrace = {
+            x: otu_ids,
+            y: sample_values.reverse(),
+            text: otu_labels,
+            mode: 'markers',
+            marker: {
+                color: [
+                    '#1f77b4',
+                    '#ff7f0e',
+                    '#2ca02c',
+                    '#d62728',
+                    '#9467bd',
+                    '#8c564b',
+                    '#e377c2',
+                    '#7f7f7f',
+                    '#bcbd22',
+                    '#17becf'
+                ],
+                size: sample_values
+            },
+        };
+
+        var bubbleData = [bubbleTrace];
+
         var bubbleLayout = {
             title: "Top 10 OTU ID's",
             xaxis: {
@@ -68,17 +92,6 @@ function createPlots(id) {
             height: 600,
             width: 1000
         };
-
-        var bubbleTrace = {
-            x: otu_ids,
-            y: sample_values,
-            text: otu_labels,
-            marker: {
-                size: [sample_values]
-            }
-        };
-
-        var bubbleData = [bubbleTrace];
 
         // plot bubble chart
         Plotly.newPlot("bubble", bubbleData, bubbleLayout);
@@ -128,8 +141,7 @@ function createPlots(id) {
             margin: {
                 top: 20,
                 bottom: 40,
-                left: 100,
-                right: 100
+                left: 75,
             }
         };
 
