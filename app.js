@@ -9,33 +9,34 @@ function createPlots(id) {
         // console.log(wfreq)
 
         // filter samples by id 
-        var data = data.samples.filter(id => id.id.toString() === id)[0];
-        // console.log(data)
+        var samples = data.samples.filter(s => s.id.toString() === id)[0];
+        console.log(samples)
 
         // top 10
-        var samples_values = data.samples.samples_values.slice(0, 10).reverse();
+        var sample_values = samples.sample_values.slice(0, 10);
+        console.log(sample_values)
 
         // top 10 otu ids for the plot otu 
-        var topTenOTU = data.otu_ids.slice(0, 10).reverse();
+        var topTenOTU = samples.otu_ids.slice(0, 10).reverse();
 
         var otu_ids = topTenOTU.map(d => "OTU " + d)
 
         // console.log(otu_ids)
 
         // get labels for top 10
-        var otu_labels = data.otu_labels.slice(0, 10);
+        var otu_labels = samples.otu_labels.slice(0, 10);
         // console.log(otu_labels)
 
         // set trace var
         var trace = {
-            x: samples_values,
+            x: sample_values,
             y: otu_ids,
             text: otu_labels,
             marker: {
                 color: 'rgb(142,124,195)'
             },
             type: "bar",
-            orintation: "h"
+            orientation: "h"
         };
 
         // set data var
@@ -45,7 +46,7 @@ function createPlots(id) {
         var layout = {
             title: "Top 10 OTU",
             yaxis: {
-                tickmode: "liear"
+                tickmode: "linear"
             },
             margin: {
                 left: 100,
@@ -60,6 +61,7 @@ function createPlots(id) {
 
         // Bubble Chart
         var bubbleLayout = {
+            title: "Top 10 OTU ID's",
             xaxis: {
                 tilte: "OTU ID"
             },
@@ -69,11 +71,10 @@ function createPlots(id) {
 
         var bubbleTrace = {
             x: otu_ids,
-            y: sample_variables,
+            y: sample_values,
             text: otu_labels,
             marker: {
-                size: [samples_values],
-                color: [otu_ids]
+                size: [sample_values]
             }
         };
 
