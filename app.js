@@ -67,7 +67,6 @@ function displayGraphs(selectedID) {
         var bubbleData = [bubbleTrace];
 
         var bubbleLayout = {
-            title: "Top 10 OTU ID's",
             xaxis: {
                 tilte: "OTU ID"
             },
